@@ -1,6 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from './users/users.module';
+import { RolesModule } from './roles/roles.module';
+import { ProfilesModule } from './profiles/profiles.module';
+import { GroupsModule } from './groups/groups.module';
+import { Role } from './roles/entities/role.entity';
+import { Profile } from './profiles/entities/profile.entity';
+import { User } from './users/entities/user.entity';
+import { Group } from './groups/entities/group.entity';
 
 @Module({
   imports: [
@@ -16,11 +24,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: configService.get<string>('POSTGRES_USERNAME'),
         password: configService.get<string>('POSTGRES_PASSWORD'),
         database: configService.get<string>('POSTGRES_DATABASE_NAME'),
-        entities: [],
+        entities: [Role, Profile, User, Group],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
+    UsersModule,
+    RolesModule,
+    ProfilesModule,
+    GroupsModule,
   ],
   controllers: [],
   providers: [],
