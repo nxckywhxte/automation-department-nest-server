@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from '../../roles/entities/role.entity';
 
-@Entity({ name: 'users' })
+@Entity({ name: '_users' })
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -13,4 +14,12 @@ export class User {
 
   @Column({ name: 'hashed_password', type: 'string', nullable: false })
   hashedPassword: string;
+
+  @OneToOne(() => Role, {
+    nullable: false,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+    eager: true,
+  })
+  role: Role;
 }
