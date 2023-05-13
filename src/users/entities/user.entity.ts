@@ -6,13 +6,13 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'username', type: 'string', unique: true, nullable: false })
+  @Column({ name: 'username', unique: true, nullable: false })
   username: string;
 
-  @Column({ name: 'email', type: 'string', unique: true, nullable: false })
+  @Column({ name: 'email', unique: true, nullable: false })
   email: string;
 
-  @Column({ name: 'hashed_password', type: 'string', nullable: false })
+  @Column({ name: 'hashed_password', nullable: false })
   hashedPassword: string;
 
   @OneToOne(() => Role, {
